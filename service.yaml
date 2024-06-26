@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-service-pvt
+spec:
+  selector:
+    app: my-flask-nginx
+  ports:
+    - name: private-port
+      protocol: TCP
+      port: 8001
+      targetPort: 8001
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-service-pub
+spec:
+  selector:
+    app: my-flask-nginx
+  ports:
+    - name: public-port
+      protocol: TCP
+      port: 8000
+      targetPort: 8000
+      nodePort: 32000
+  type: NodePort
+
